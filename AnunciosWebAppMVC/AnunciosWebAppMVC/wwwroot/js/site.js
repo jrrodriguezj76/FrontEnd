@@ -1,4 +1,21 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿function ReloadEvents(ptext, psel, pmin, pmax) {
+    alert("Parametros" + ptext + ' ' + pmin + ' ' + pmax + ' ' + psel);
+    //this.preventDefault();
+    //this.stopPropagation();
+    $.ajax({
+        url: '/Anuncios/Buscar',
+        type: "POST",
+        data: {
+            ptext: ptext,
+            pmin: pmin,
+            pmax: pmax,
+            psel: psel
+        }
+    }).done(function (response) {
+        console.log("Success");
+        $("#listavista").replaceWith(response.html);
+    }).fail(function () {
+        console.log("Error");
+    });
 
-// Write your JavaScript code.
+}

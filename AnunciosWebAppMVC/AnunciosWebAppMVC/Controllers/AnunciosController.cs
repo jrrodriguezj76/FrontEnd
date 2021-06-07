@@ -61,7 +61,18 @@ namespace AnunciosWebAppMVC.Controllers
             return View(model);
 
         }
+        //BUSCAR
 
+        public async Task<PartialViewResult> Buscar(string ptext, string pmin, string pmax, string psel)
+        {
+            //IEnumerable<Anuncio> model = new List<Anuncio>();
+            IEnumerable<AnuncioView> filtro = new List<AnuncioView>();
+            var model = await _servicioanuncio.GetAnunciosPaginaAsync(1, _apiurl);
+            filtro = model.Where(p => (p.Precio > 10000));
+            
+            return PartialView("_Listavista2",filtro);
+
+        }
         // GET: Anuncios/Details/5
         public async Task<IActionResult> Details(int? id)
         {

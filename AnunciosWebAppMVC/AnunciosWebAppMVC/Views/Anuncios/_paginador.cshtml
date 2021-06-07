@@ -29,19 +29,19 @@
 
     <ul class="pagination">
         @{Model.ValoresQueryString["pagina"] = 1; }
-        <li class="btn btn-success">@Html.ActionLink("Primera", null, Model.ValoresQueryString)</li>
+        <li class="btn btn-light">@Html.ActionLink("Primera", null, Model.ValoresQueryString)</li>
         @for (int i = Inicial; i <= Final; i++)
         {
             Model.ValoresQueryString["pagina"] = i;
             if (i == Model.PaginaActual)
             {
-                <li class="btn btn-outline-success">@Html.ActionLink(i.ToString(), null, Model.ValoresQueryString)</li>
+                <li class="btn btn-outline-light">@Html.ActionLink(i.ToString(), null, Model.ValoresQueryString)</li>
             }
             else
             {
-                <li class="btn btn-success">@Html.ActionLink(i.ToString(), null, Model.ValoresQueryString)</li>
+                <li class="btn btn-light">@Html.ActionLink(i.ToString(), null, Model.ValoresQueryString)</li>
             }
         }
         @{Model.ValoresQueryString["pagina"] = cantidadPaginas; }
-        <li class="btn btn-success">@Html.ActionLink("Ultima", null, Model.ValoresQueryString)</li>
+        <li class="btn btn-light">@Html.ActionLink("Ultima", null, Model.ValoresQueryString)</li>
     </ul>
