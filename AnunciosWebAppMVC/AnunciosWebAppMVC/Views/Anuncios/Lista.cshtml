@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AnunciosWebMVC.Anuncios.Servicios.DataTransferO.AnuncioView>
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="~/css/site.css" />
+
+@{
+    ViewData["Title"] = "Anuncios Publicados";
+}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="busqueda border border-danger" style="background-color: white">
+                <div class="d-inline text-success text-center mb-5">
+                    <h5>Buscador de Anuncios</h5>
+                </div>
+                <form asp-action="Buscar" class="col h-75">
+                    <div class="form-group h-25">
+                        <label for="formGroupExampleInput">Anuncio</label>
+                        <input type="text" class="form-control" id="findtext" placeholder="Teclee entrada">
+                        @*<small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>*@
+                    </div>
+                    <div class="form-group h-25">
+                        <select class="form-control" id="findselect">
+                            <option>Default select</option>
+                        </select>
+                    </div>
+                    <div class="row form-group h-25 mx-sm-3 mb-2">
+                        <div class="col">
+                            <label class="sr-only">Min</label>
+                            <input type="text" class="form-control" id="findmin" placeholder="Minimo">
+                        </div>
+                        <div class="col">
+                            <label class="sr-only">Max</label>
+                            <input type="text" class="form-control" id="findmax" placeholder="Maximo">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btnfind" onclick="javascript:ReloadEvents(findtext.value, findselect.value, findmin.value, findmin.value)" class="btn btn-primary">Buscar</button>
+                </form>
+            </div>
+        </div>
+         <div class="col-8">
+            <div class="row">
+                @{var country = (AnunciosWebMVC.Anuncios.Servicios.Models.PaginaModelo)ViewBag.mipagina;}
+                @await Html.PartialAsync("_paginador", country)
+            </div>
+            <div class="row" id="listavista">
+                @await Html.PartialAsync("_Listavista", Model)
+            </div>
+
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="formulario">
+    <h4>Gracias por contactarnos</h4>
+    <hr />
+    <div>
+        <a asp-controller="Home" asp-action="Index">Regresar</a>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnunciosWebAppMVC", "AnunciosWebAppMVC\AnunciosWebAppMVC.csproj", "{40A91DC9-8C47-4BE8-B9AA-BA43718C20FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Anuncios.Servicios", "Anuncios.Servicios\Anuncios.Servicios.csproj", "{216AB6FD-4034-47CF-ABD3-DB14EA073B65}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40A91DC9-8C47-4BE8-B9AA-BA43718C20FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40A91DC9-8C47-4BE8-B9AA-BA43718C20FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40A91DC9-8C47-4BE8-B9AA-BA43718C20FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40A91DC9-8C47-4BE8-B9AA-BA43718C20FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{216AB6FD-4034-47CF-ABD3-DB14EA073B65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{216AB6FD-4034-47CF-ABD3-DB14EA073B65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{216AB6FD-4034-47CF-ABD3-DB14EA073B65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{216AB6FD-4034-47CF-ABD3-DB14EA073B65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B521B1F-614F-46C4-96E2-011268398A64}
+	EndGlobalSection
+EndGlobal
