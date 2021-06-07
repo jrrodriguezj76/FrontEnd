@@ -1,6 +1,5 @@
 using Anuncios.Servicios.Interfaces;
 using Anuncios.Servicios.Servicios;
-using AnunciosWebMVC.DBContext;
 using Correos.Servicios.Servicios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,11 +28,13 @@ namespace AnunciosWebAppMVC
         {
             
             services.AddControllersWithViews();
-            services.AddDbContext<AnuncioDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("ConexionDb")));
+            //services.AddDbContext<AnuncioDbContext>(options =>
+            //    options.UseNpgsql(Configuration.GetConnectionString("ConexionDb")));
             services.AddScoped<IAnuncio, AnuncioServicio>();
             services.AddScoped<ITipo, TipoServicio>();
             services.AddScoped<ICorreo, CorreoServicio>();
+            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

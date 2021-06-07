@@ -10,12 +10,12 @@ namespace Anuncios.Servicios.Interfaces
 {
     public interface IAnuncio
     {
-        Task<List<Anuncio>> GetAnunciosAsync();
-        Task<List<AnuncioView>> GetAnunciosPaginaAsync(int pagina);
-        Task<Anuncio> PostAnuncioInsert(Anuncio anuncio);
-        Task<Anuncio> GetAnuncioIdAsync(int? Id);
-        Task<Anuncio> PostAnuncioUpdate(Anuncio anuncio);
-        Task<Anuncio> PostAnuncioDelete(int? Id);
+        Task<List<Anuncio>> GetAnunciosAsync(string _webapi);
+        Task<List<AnuncioView>> GetAnunciosPaginaAsync(int pagina, string _webapi);
+        Task<Anuncio> PostAnuncioInsert(Anuncio anuncio, string _webapi);
+        Task<Anuncio> GetAnuncioIdAsync(int? Id, string _webapi);
+        Task<Anuncio> PostAnuncioUpdate(Anuncio anuncio, string _webapi);
+        Task<Anuncio> PostAnuncioDelete(int? Id, string _webapi);
 
 
     }

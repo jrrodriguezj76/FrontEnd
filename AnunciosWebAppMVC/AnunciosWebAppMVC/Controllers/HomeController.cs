@@ -1,5 +1,5 @@
 ﻿
-using AnunciosWebAppMVC.Models;
+using AnunciosWebMVC.Anuncios.Servicios.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

@@ -5,52 +5,44 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AnunciosWebMVC.DBContext;
 using System.IO;
 using Anuncios.Servicios.Interfaces;
 using AnunciosWebMVC.Anuncios.Servicios.Models;
-using AnunciosWebAppMVC.ModelView;
 using Microsoft.AspNetCore.Routing;
 using AnunciosWebMVC.Anuncios.Servicios.DataTransferO;
+using Microsoft.Extensions.Configuration;
 
 namespace AnunciosWebAppMVC.Controllers
 {
     public class AnunciosController : Controller
     {
-        //private readonly AnuncioDbContext _context;
         private readonly IAnuncio _servicioanuncio;
         private readonly ITipo _serviciotipo;
+        private readonly IConfiguration _config;
+        public string _apiurl;
+        
 
-        //public AnunciosController(AnuncioDbContext context, IAnuncio anuncio)
-       public AnunciosController(IAnuncio anuncio, ITipo tipo)
+        public AnunciosController(IAnuncio anuncio, ITipo tipo, IConfiguration config)
         {
-            //_context = context;
             _servicioanuncio = anuncio;
             _serviciotipo = tipo;
+           _config = config;
+          _apiurl = _config["ConnectionString:ConexionApi"];
         }
 
                // GET: Anuncios
         public async Task<ActionResult<List<Anuncio>>> Index()
         {
-            //List<Anuncio> model = new List<Anuncio>();
-            var model = await _servicioanuncio.GetAnunciosAsync();
+            var model = await _servicioanuncio.GetAnunciosAsync(_apiurl);
             return View(model);
 
         }
 
-        //public async Task<ActionResult<List<Anuncio>>> Lista()
-        //{
-        //    //List<Anuncio> model = new List<Anuncio>();
-        //    var model = await _servicioanuncio.GetAnunciosAsync();
-
-        //   return View(model);
-
-        //}
         public async Task<ActionResult<List<AnuncioView>>> Lista(int pagina = 1)
         {
             //List<Anuncio> model = new List<Anuncio>();
-            var model = await _servicioanuncio.GetAnunciosPaginaAsync(pagina);
-            var totalmodel = await _servicioanuncio.GetAnunciosAsync();
+            var model = await _servicioanuncio.GetAnunciosPaginaAsync(pagina, _apiurl);
+            var totalmodel = await _servicioanuncio.GetAnunciosAsync(_apiurl);
             var totalRegistros = totalmodel.Count();
 
             var mpagina = new PaginaModelo();
@@ -61,6 +53,10 @@ namespace AnunciosWebAppMVC.Controllers
             mpagina.ValoresQueryString = new RouteValueDictionary();
             //mpagina.ValoresQueryString["pagina"] = edad
             ViewBag.mipagina = mpagina;
+
+            List<Tipo> cattipos = new List<Tipo>();
+            cattipos = await _serviciotipo.GetTiposAsync(_apiurl);
+            ViewBag.tipos = new SelectList(cattipos, "Id_Tipo", "Tipo1");
 
             return View(model);
 
@@ -73,9 +69,8 @@ namespace AnunciosWebAppMVC.Controllers
             {
                 return NotFound();
             }
-            var model = await _servicioanuncio.GetAnuncioIdAsync(id);
-            //var anuncio = await _context.Anuncios
-            //    .FirstOrDefaultAsync(m => m.Id == id);
+            var apiurl = _config["ConnectionString:ConexionApi"];
+            var model = await _servicioanuncio.GetAnuncioIdAsync(id,_apiurl);
             if (model == null)
             {
                 return NotFound();
@@ -90,10 +85,8 @@ namespace AnunciosWebAppMVC.Controllers
             //List<> cattipos = _serviciotipo.GetTiposAsync();
 
             List<Tipo> cattipos = new List<Tipo>();
-            cattipos = await _serviciotipo.GetTiposAsync();
+            cattipos = await _serviciotipo.GetTiposAsync(_apiurl);
             ViewBag.tipos = new SelectList(cattipos, "Id_Tipo", "Tipo1");
-            //List < ActivoDto > activo = await _iservices.GetActivoAsync();
-            //ViewData["Activoid"] = new SelectList(activo, "Idactivo", "Nombre_corto", model.Activoid);
             return View();
         }
 
@@ -115,9 +108,7 @@ namespace AnunciosWebAppMVC.Controllers
                     ms.Close();
                     ms.Dispose();
                 }
-                var model = await _servicioanuncio.PostAnuncioInsert(anuncio);
-                //_context.Add(anuncio);
-                //await _context.SaveChangesAsync();
+                var model = await _servicioanuncio.PostAnuncioInsert(anuncio,_apiurl);
                 return RedirectToAction(nameof(Index));
             }
             return View(anuncio);
@@ -130,12 +121,10 @@ namespace AnunciosWebAppMVC.Controllers
             {
                 return NotFound();
             }
-
-            var model = await _servicioanuncio.GetAnuncioIdAsync(id);
+            var model = await _servicioanuncio.GetAnuncioIdAsync(id,_apiurl);
             List<Tipo> cattipos = new List<Tipo>();
-            cattipos = await _serviciotipo.GetTiposAsync();
+            cattipos = await _serviciotipo.GetTiposAsync(_apiurl);
             ViewBag.tipos = new SelectList(cattipos, "Id_Tipo", "Tipo1",model.IdTipo);
-            //var anuncio = await _context.Anuncios.FindAsync(id);
             if (model == null)
             {
                 return NotFound();
@@ -168,9 +157,7 @@ namespace AnunciosWebAppMVC.Controllers
                         ms.Close();
                         ms.Dispose();
                     }
-                    //_context.Update(anuncio);
-                    //await _context.SaveChangesAsync();
-                    var model = await _servicioanuncio.PostAnuncioUpdate(anuncio);
+                    var model = await _servicioanuncio.PostAnuncioUpdate(anuncio,_apiurl);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
@@ -196,9 +183,7 @@ namespace AnunciosWebAppMVC.Controllers
             {
                 return NotFound();
             }
-            var model = await _servicioanuncio.GetAnuncioIdAsync(id);
-            //var anuncio = await _context.Anuncios
-            //    .FirstOrDefaultAsync(m => m.Id == id);
+            var model = await _servicioanuncio.GetAnuncioIdAsync(id,_apiurl);
             if (model == null)
             {
                 return NotFound();
@@ -212,21 +197,13 @@ namespace AnunciosWebAppMVC.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var model = await _servicioanuncio.PostAnuncioDelete(id);
-            //var anuncio = await _context.Anuncios.FindAsync(id);
-            //_context.Anuncios.Remove(anuncio);
-            //await _context.SaveChangesAsync();
+            var model = await _servicioanuncio.PostAnuncioDelete(id,_apiurl);
             return RedirectToAction(nameof(Index));
         }
 
         private bool AnuncioExists(int id)
         {
            
-            ////return _context.Anuncios.Any(e => e.Id == id);
-            //var model = await _servicioanuncio.GetAnuncioIdAsync(id);
-            //if (model == null) {
-            //    return false;
-            //}
             return true;
                 
         }

@@ -12,14 +12,14 @@ namespace Anuncios.Servicios.Servicios
 {
     public class TipoServicio : ITipo
     {
-        public async Task<List<Tipo>> GetTiposAsync()
+        public async Task<List<Tipo>> GetTiposAsync(string webapi)
         {
             List<Tipo> tipos = new List<Tipo>();
             HttpResponseMessage response;
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Tipo/");
+                httpClient.BaseAddress = new Uri(webapi + "Tipo/");
 
                 using (response = await httpClient.GetAsync(string.Format("Listar")))
                 {
@@ -40,14 +40,14 @@ namespace Anuncios.Servicios.Servicios
         }
 
 
-        public async Task<Tipo> GetTipoIdAsync(int? Id)
+        public async Task<Tipo> GetTipoIdAsync(int? Id, string webapi)
         {
             Tipo tipo = new Tipo();
             HttpResponseMessage response;
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Tipo/");
+                httpClient.BaseAddress = new Uri(webapi + "Tipo/");
 
                 //using (response = await httpClient.GetAsync(string.Format("Detalle?id=8")))
                 using (response = await httpClient.GetAsync(string.Format("Detalle?id={0}", Id)))

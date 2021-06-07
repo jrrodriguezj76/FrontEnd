@@ -1,0 +1,9 @@
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\bin\Debug\netcoreapp3.1\Anuncios.Servicios.deps.json
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\bin\Debug\netcoreapp3.1\Anuncios.Servicios.dll
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\bin\Debug\netcoreapp3.1\Anuncios.Servicios.pdb
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\obj\Debug\netcoreapp3.1\Anuncios.Servicios.AssemblyInfoInputs.cache
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\obj\Debug\netcoreapp3.1\Anuncios.Servicios.AssemblyInfo.cs
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\obj\Debug\netcoreapp3.1\Anuncios.Servicios.csproj.CoreCompileInputs.cache
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\obj\Debug\netcoreapp3.1\Anuncios.Servicios.dll
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\obj\Debug\netcoreapp3.1\Anuncios.Servicios.pdb
+C:\ProyectoAnuncios\FrontEnd\AnunciosWebAppMVC\Anuncios.Servicios\obj\Debug\netcoreapp3.1\Anuncios.Servicios.csproj.AssemblyReference.cache

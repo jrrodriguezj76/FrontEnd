@@ -12,6 +12,7 @@ namespace AnunciosWebMVC.Anuncios.Servicios.Models
         [StringLength(50, ErrorMessage = "Titulo no debe ser mayor a 50 caracteres")]
         [Required(ErrorMessage = "Titulo es obligatorio")]
         public string Titulo { get; set; }
+        [Display(Name ="Tipo")]
         public int IdTipo { get; set; }
         [Range(0, 999999999999.99)]
         [Required(ErrorMessage = "Precio es obligatorio")]

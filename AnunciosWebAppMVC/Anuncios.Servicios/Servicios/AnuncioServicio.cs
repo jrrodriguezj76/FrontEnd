@@ -6,21 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Formatting;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Anuncios.Servicios.Servicios
 {
     public class AnuncioServicio : IAnuncio
     {
-        public async Task<List<Anuncio>> GetAnunciosAsync()
+
+        public async Task<List<Anuncio>> GetAnunciosAsync(string _webapi)
         {
             List<Anuncio> anuncios = new List<Anuncio>();
             HttpResponseMessage response;
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Anuncio/");
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/");
 
                 using (response = await httpClient.GetAsync(string.Format("Listar")))
                 {
@@ -40,14 +40,14 @@ namespace Anuncios.Servicios.Servicios
             return anuncios;
         }
 
-        public async Task<List<AnuncioView>> GetAnunciosPaginaAsync(int pagina)
+        public async Task<List<AnuncioView>> GetAnunciosPaginaAsync(int pagina, string _webapi)
         {
             List<AnuncioView> anuncios = new List<AnuncioView>();
             HttpResponseMessage response;
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Anuncio/");
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/");
 
                 using (response = await httpClient.GetAsync(string.Format("ListarPagina?pagina={0}", pagina)))
                 {
@@ -67,14 +67,14 @@ namespace Anuncios.Servicios.Servicios
             return anuncios;
         }
 
-        public async Task<Anuncio> GetAnuncioIdAsync(int? Id)
+        public async Task<Anuncio> GetAnuncioIdAsync(int? Id, string _webapi)
         {
             Anuncio anuncio = new Anuncio();
             HttpResponseMessage response;
 
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Anuncio/");
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/");
 
                 //using (response = await httpClient.GetAsync(string.Format("Detalle?id=8")))
                 using (response = await httpClient.GetAsync(string.Format("Detalle?id={0}", Id)))
@@ -95,13 +95,13 @@ namespace Anuncios.Servicios.Servicios
             return anuncio;
         }
 
-        public async Task<Anuncio> PostAnuncioInsert(Anuncio anuncio)
+        public async Task<Anuncio> PostAnuncioInsert(Anuncio anuncio, string _webapi)
         {
             HttpResponseMessage response;
             Anuncio anuncioDto = new Anuncio();
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Anuncio/Registrar");
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/Registrar");
 
                 using (response = await httpClient.PostAsync("", anuncio, new JsonMediaTypeFormatter()))
                 {
@@ -120,13 +120,13 @@ namespace Anuncios.Servicios.Servicios
             return anuncioDto;
         }
 
-        public async Task<Anuncio> PostAnuncioUpdate(Anuncio anuncio)
+        public async Task<Anuncio> PostAnuncioUpdate(Anuncio anuncio, string _webapi)
         {
             HttpResponseMessage response;
             Anuncio anuncioDto = new Anuncio();
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Anuncio/");
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/");
 
                 using (response = await httpClient.PostAsync(string.Format("Modificar?id={0}", anuncio.Id), anuncio, new JsonMediaTypeFormatter()))
                 {
@@ -145,13 +145,13 @@ namespace Anuncios.Servicios.Servicios
             return anuncioDto;
         }
 
-        public async Task<Anuncio> PostAnuncioDelete(int? Id)
+        public async Task<Anuncio> PostAnuncioDelete(int? Id, string _webapi)
         {
             HttpResponseMessage response;
             Anuncio anuncioDto = new Anuncio();
             using (var httpClient = new HttpClient())
             {
-                httpClient.BaseAddress = new Uri("http://localhost:34696/api/Anuncio/");
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/");
 
                 using (response = await httpClient.PostAsync(string.Format("Borrar?id={0}", Id), anuncioDto, new JsonMediaTypeFormatter()))
                 {
