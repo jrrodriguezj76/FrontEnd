@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Anuncios Publicados";
 }
-<div class="container">
+<div class="container" id="lista">
     <div class="row">
         <div class="col">
             <div class="busqueda p-5" style="background-color: white">
@@ -34,7 +34,10 @@
                     </div>
                     <div class="form-group h-25 text-center">
                         <div class="col">
-                            <button type="submit" id="btnfind" onclick="javascript:ReloadEvents(findtext.value, findselect.value, findmax.value, findmin.value)" class="btn btn-primary">Buscar</button>
+                            @*<button type="submit" id="btnfind" onclick="javascript:ReloadEvents(findtext.value, findselect.value, findmin.value, findmax.value)" class="btn btn-primary">Buscar</button>*@
+                            <a class="btn btn-primary" href="#" role="button" id="boton" onclick="javascript:ReloadEvents(findtext.value, findselect.value, findmin.value, findmax.value)">Buscar</a>
+                            <button class="btn text-reset" type="submit" id="reset">Reset</button>
+
                         </div>
                     </div>
                     </form>
@@ -44,8 +47,6 @@
                     @await Html.PartialAsync("_paginador", country)
                 </div>
             </div>
-
-
         </div>
          <div class="col-8">
              <div class="row" id="listavista">

@@ -1,4 +1,4 @@
-﻿@model AnunciosWebMVC.Anuncios.Servicios.Models.Anuncio
+﻿@model AnunciosWebMVC.Anuncios.Servicios.DataTransferO.AnuncioView
 
 @{
     ViewData["Title"] = "Detalles";
@@ -20,7 +20,7 @@
                 Tipo
             </dt>
             <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.IdTipo)
+                @Html.DisplayFor(model => model.Tipo)
             </dd>
             <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Precio)

@@ -25,8 +25,7 @@
             }
         }
     }
-
-
+<div id="paginado">
     <ul class="pagination">
         @{Model.ValoresQueryString["pagina"] = 1; }
         <li class="btn btn-light">@Html.ActionLink("Primera", null, Model.ValoresQueryString)</li>
@@ -45,3 +44,4 @@
         @{Model.ValoresQueryString["pagina"] = cantidadPaginas; }
         <li class="btn btn-light">@Html.ActionLink("Ultima", null, Model.ValoresQueryString)</li>
     </ul>
+</div>

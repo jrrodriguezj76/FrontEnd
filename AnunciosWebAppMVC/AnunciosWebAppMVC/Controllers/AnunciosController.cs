@@ -51,12 +51,13 @@ namespace AnunciosWebAppMVC.Controllers
             mpagina.TotalDeRegistros = totalRegistros;
             mpagina.RegistrosPorPagina = 10;
             mpagina.ValoresQueryString = new RouteValueDictionary();
-            //mpagina.ValoresQueryString["pagina"] = edad
+            mpagina.ValoresQueryString["pagina"] = pagina;
             ViewBag.mipagina = mpagina;
 
             List<Tipo> cattipos = new List<Tipo>();
             cattipos = await _serviciotipo.GetTiposAsync(_apiurl);
-            ViewBag.tipos = new SelectList(cattipos, "Id_Tipo", "Tipo1");
+            //ViewBag.tipos = new SelectList(cattipos, "Id_Tipo", "Tipo1");
+            ViewBag.tipos = new SelectList(cattipos, "Tipo1", "Tipo1");
 
             return View(model);
 
@@ -67,10 +68,37 @@ namespace AnunciosWebAppMVC.Controllers
         {
             //IEnumerable<Anuncio> model = new List<Anuncio>();
             IEnumerable<AnuncioView> filtro = new List<AnuncioView>();
-            var model = await _servicioanuncio.GetAnunciosPaginaAsync(1, _apiurl);
-            filtro = model.Where(p => (p.Precio > 10000));
-            
-            return PartialView("_Listavista2",filtro);
+            var model = await _servicioanuncio.GetAnunciosAsync(_apiurl);
+            filtro = model;
+            if (ptext != null) {
+                filtro = filtro.Where(p => (p.Titulo.Contains(ptext)));
+            }
+            if (pmin != null) {
+                filtro = filtro.Where(p => (p.Precio >= Convert.ToDouble(pmin)));
+            }
+            if (pmax != null)
+            {
+                filtro = filtro.Where(p => (p.Precio <= Convert.ToDouble(pmax)));
+            }
+            if (psel != null) { 
+                filtro = filtro.Where(p => (p.Tipo.Contains(psel)));
+            }
+
+            //filtro = model.Where(p => (p.Precio >= Convert.ToDouble(pmin) && p.Precio <= Convert.ToDouble(pmax) && p.Titulo.Contains(ptext) && p.Tipo.Contains(psel)));
+            return PartialView("_Listavista",filtro);
+           
+
+        }
+
+        public async Task<PartialViewResult> BuscarPaginado(string ptext, string pmin, string pmax, string psel, int pagina = 1)
+        {
+            //IEnumerable<Anuncio> model = new List<Anuncio>();
+            IEnumerable<AnuncioView> filtro = new List<AnuncioView>();
+            var model = await _servicioanuncio.GetAnunciosAsync(_apiurl);
+            filtro = model.Where(p => (p.Precio >= Convert.ToDouble(pmin) && p.Precio <= Convert.ToDouble(pmax) && p.Titulo.Contains(ptext) && p.Tipo.Contains(psel)));
+
+            return PartialView("_Listavista", filtro);
+
 
         }
         // GET: Anuncios/Details/5
@@ -81,7 +109,7 @@ namespace AnunciosWebAppMVC.Controllers
                 return NotFound();
             }
             var apiurl = _config["ConnectionString:ConexionApi"];
-            var model = await _servicioanuncio.GetAnuncioIdAsync(id,_apiurl);
+            var model = await _servicioanuncio.GetAnuncioIdVistaAsync(id,_apiurl);
             if (model == null)
             {
                 return NotFound();
@@ -194,7 +222,7 @@ namespace AnunciosWebAppMVC.Controllers
             {
                 return NotFound();
             }
-            var model = await _servicioanuncio.GetAnuncioIdAsync(id,_apiurl);
+            var model = await _servicioanuncio.GetAnuncioIdVistaAsync(id,_apiurl);
             if (model == null)
             {
                 return NotFound();

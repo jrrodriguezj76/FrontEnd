@@ -13,9 +13,9 @@ namespace Anuncios.Servicios.Servicios
     public class AnuncioServicio : IAnuncio
     {
 
-        public async Task<List<Anuncio>> GetAnunciosAsync(string _webapi)
+        public async Task<List<AnuncioView>> GetAnunciosAsync(string _webapi)
         {
-            List<Anuncio> anuncios = new List<Anuncio>();
+            List<AnuncioView> anuncios = new List<AnuncioView>();
             HttpResponseMessage response;
 
             using (var httpClient = new HttpClient())
@@ -28,7 +28,7 @@ namespace Anuncios.Servicios.Servicios
                     {
                         string apiResponse = "";
                         apiResponse = await response.Content.ReadAsStringAsync();
-                        anuncios = JsonConvert.DeserializeObject<List<Anuncio>>(apiResponse);
+                        anuncios = JsonConvert.DeserializeObject<List<AnuncioView>>(apiResponse);
                     }
                     else
                     {
@@ -84,6 +84,33 @@ namespace Anuncios.Servicios.Servicios
                         string apiResponse = "";
                         apiResponse = await response.Content.ReadAsStringAsync();
                         anuncio = JsonConvert.DeserializeObject<Anuncio>(apiResponse);
+                    }
+                    else
+                    {
+                        response.EnsureSuccessStatusCode();
+                    }
+
+                }
+            }
+            return anuncio;
+        }
+
+        public async Task<AnuncioView> GetAnuncioIdVistaAsync(int? Id, string _webapi)
+        {
+            AnuncioView anuncio = new AnuncioView();
+            HttpResponseMessage response;
+
+            using (var httpClient = new HttpClient())
+            {
+                httpClient.BaseAddress = new Uri(_webapi + "Anuncio/");
+
+                using (response = await httpClient.GetAsync(string.Format("DetalleVista?id={0}", Id)))
+                {
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string apiResponse = "";
+                        apiResponse = await response.Content.ReadAsStringAsync();
+                        anuncio = JsonConvert.DeserializeObject<AnuncioView>(apiResponse);
                     }
                     else
                     {

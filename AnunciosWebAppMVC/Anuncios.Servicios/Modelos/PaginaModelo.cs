@@ -11,6 +11,10 @@ namespace AnunciosWebMVC.Anuncios.Servicios.Models
         public int PaginaActual { get; set; }
         public int TotalDeRegistros { get; set; }
         public int RegistrosPorPagina { get; set; }
+        public string btitulo { get; set; }
+        public string btipo { get; set; }
+        public string bmin { get; set; }
+        public string bmax { get; set; }
         public RouteValueDictionary ValoresQueryString { get; set; }
     }
 }
